@@ -1,8 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logger/logger.dart';
+
+var logger = Logger(
+  printer: PrettyPrinter(),
+);
+
+var loggerNoStack = Logger(
+  printer: PrettyPrinter(methodCount: 0),
+);
 
 void main() {
   runApp(const MyApp());
+}
+
+void demo() {
+  logger.d('Log message with 2 methods');
+
+  loggerNoStack.i('Info message');
+
+  loggerNoStack.w('Just a warning');
+
+  logger.e('Error! Something bad happened', error: 'Test Error');
+
+  loggerNoStack.t({'key': 5, 'value': 'something'});
+
+  Logger(printer: SimplePrinter(colors: true)).t('boom');
 }
 
 class MyApp extends StatelessWidget {
@@ -11,6 +34,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    logger.i('logger is working!');
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -68,18 +93,22 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+
+      logger.i('counter increased, new count: $_counter');
     });
   }
 
   void _decreaseCounter() {
     setState(() {
       _counter--;
+      logger.i('counter decreased, new count: $_counter');
     });
   }
 
   void _resetCounter() {
     setState(() {
       _counter = 0;
+      logger.i('counter reseted, new count: $_counter');
     });
   }
 
@@ -93,6 +122,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    logger.i('MyHomePage is loading');
+
     String stonksAsset = 'assets/icons/stonks.svg';
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
