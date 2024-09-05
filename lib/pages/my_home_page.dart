@@ -78,24 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SvgPicture.asset(
-                stonksAsset,
-                semanticsLabel: 'stonks',
-                width: 30,
-                height: 30,
-              ),
-              const Text(
-                'Has persionado el boton estas veces:',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ],
-          ),
+          child: counter(stonksAsset: stonksAsset, counter: _counter),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: _incrementCounter,
@@ -103,5 +86,48 @@ class _MyHomePageState extends State<MyHomePage> {
           child: const Icon(Icons.delete),
         ),
         persistentFooterButtons: _createPersistentButtons());
+  }
+}
+
+class counter extends StatelessWidget {
+  const counter({
+    super.key,
+    required this.stonksAsset,
+    required int counter,
+  }) : _counter = counter;
+
+  final String stonksAsset;
+  final int _counter;
+
+  @override
+  Widget build(BuildContext context) {
+    //getting the device's size
+    final Size screenSize = MediaQuery.of(context).size;
+
+    return Center(
+        child: SizedBox(
+      width: screenSize.width * 0.9,
+      height: screenSize.height * 0.8,
+      child: Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SvgPicture.asset(
+              stonksAsset,
+              semanticsLabel: 'stonks',
+              width: 30,
+              height: 30,
+            ),
+            const Text(
+              'Has persionado el boton estas veces:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 }
