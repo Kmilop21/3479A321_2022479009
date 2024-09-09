@@ -36,11 +36,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  String displayedAsset = 'assets/icons/stonks.svg';
+  String displayedText = 'Has persionado el boton estas veces:';
+
   void _incrementCounter() {
     setState(() {
       _counter++;
-
       logger.i('counter increased, new count: $_counter');
+      _CheckResults();
     });
   }
 
@@ -48,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _counter--;
       logger.i('counter decreased, new count: $_counter');
+      _CheckResults();
     });
   }
 
@@ -55,24 +59,26 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _counter = 0;
       logger.i('counter reseted, new count: $_counter');
+      _CheckResults();
     });
   }
 
-  List<Widget> _createPersistentButtons() {
-    return [
-      ElevatedButton(
-          onPressed: _incrementCounter, child: const Icon(Icons.add)),
-      ElevatedButton(
-          onPressed: _decreaseCounter, child: const Icon(Icons.remove)),
-      ElevatedButton(onPressed: _resetCounter, child: const Icon(Icons.refresh))
-    ];
+  void _CheckResults() {
+    if (_counter >= 5) {
+      displayedAsset = 'assets/icons/victory.svg';
+      displayedText = '¡Victoria!';
+    } else if (_counter <= -5) {
+      displayedAsset = 'assets/icons/gameover.svg';
+      displayedText = '¡Derrota!';
+    } else {
+      displayedAsset = 'assets/icons/stonks.svg';
+      displayedText = 'Has persionado el boton estas veces:';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     logger.i('MyHomePage is loading');
-
-    String stonksAsset = 'assets/icons/stonks.svg';
 
     return Scaffold(
       appBar: AppBar(
@@ -80,27 +86,34 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: counter(stonksAsset: stonksAsset, counter: _counter),
+        child: counter(
+            displayedAsset: displayedAsset,
+            displayedText: displayedText,
+            count: _counter,
+            incrementCounter: _incrementCounter,
+            decreaseCounter: _decreaseCounter,
+            resetCounter: _resetCounter),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.delete),
-      // ),
-      //persistentFooterButtons: _createPersistentButtons()
     );
   }
 }
 
 class counter extends StatelessWidget {
-  const counter({
-    super.key,
-    required this.stonksAsset,
-    required int counter,
-  }) : _counter = counter;
+  const counter(
+      {super.key,
+      required this.displayedAsset,
+      required this.displayedText,
+      required this.count,
+      required this.incrementCounter,
+      required this.decreaseCounter,
+      required this.resetCounter});
 
-  final String stonksAsset;
-  final int _counter;
+  final String displayedAsset;
+  final String displayedText;
+  final int count;
+  final VoidCallback incrementCounter;
+  final VoidCallback decreaseCounter;
+  final VoidCallback resetCounter;
 
   @override
   Widget build(BuildContext context) {
@@ -116,16 +129,15 @@ class counter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SvgPicture.asset(
-              stonksAsset,
+              displayedAsset,
               semanticsLabel: 'stonks',
               width: 30,
               height: 30,
             ),
-            const Text(
-              'Has persionado el boton estas veces:',
-            ),
+            Text(displayedText,
+                style: Theme.of(context).textTheme.headlineSmall),
             Text(
-              '$_counter',
+              '$count',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 100),
@@ -133,16 +145,14 @@ class counter extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ElevatedButton(
-                    onPressed: () => _incrementCounter(context),
-                    child: const Icon(Icons.add)),
+                    onPressed: incrementCounter, child: const Icon(Icons.add)),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: () => _decreaseCounter(context),
+                    onPressed: decreaseCounter,
                     child: const Icon(Icons.remove)),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: () => _resetCounter(context),
-                    child: const Icon(Icons.refresh))
+                    onPressed: resetCounter, child: const Icon(Icons.refresh))
               ],
             )
           ],
@@ -150,13 +160,4 @@ class counter extends StatelessWidget {
       ),
     ));
   }
-
-  void _incrementCounter(BuildContext context) =>
-      context.findAncestorStateOfType<_MyHomePageState>()?._incrementCounter();
-
-  void _decreaseCounter(BuildContext context) =>
-      context.findAncestorStateOfType<_MyHomePageState>()?._decreaseCounter();
-
-  void _resetCounter(BuildContext context) =>
-      context.findAncestorStateOfType<_MyHomePageState>()?._resetCounter();
 }
