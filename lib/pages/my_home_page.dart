@@ -61,6 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _createPersistentButtons() {
     return [
       ElevatedButton(
+          onPressed: _incrementCounter, child: const Icon(Icons.add)),
+      ElevatedButton(
           onPressed: _decreaseCounter, child: const Icon(Icons.remove)),
       ElevatedButton(onPressed: _resetCounter, child: const Icon(Icons.refresh))
     ];
@@ -73,19 +75,20 @@ class _MyHomePageState extends State<MyHomePage> {
     String stonksAsset = 'assets/icons/stonks.svg';
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: counter(stonksAsset: stonksAsset, counter: _counter),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.delete),
-        ),
-        persistentFooterButtons: _createPersistentButtons());
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: counter(stonksAsset: stonksAsset, counter: _counter),
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.delete),
+      // ),
+      //persistentFooterButtons: _createPersistentButtons()
+    );
   }
 }
 
@@ -125,9 +128,35 @@ class counter extends StatelessWidget {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const SizedBox(height: 100),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                    onPressed: () => _incrementCounter(context),
+                    child: const Icon(Icons.add)),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                    onPressed: () => _decreaseCounter(context),
+                    child: const Icon(Icons.remove)),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                    onPressed: () => _resetCounter(context),
+                    child: const Icon(Icons.refresh))
+              ],
+            )
           ],
         ),
       ),
     ));
   }
+
+  void _incrementCounter(BuildContext context) =>
+      context.findAncestorStateOfType<_MyHomePageState>()?._incrementCounter();
+
+  void _decreaseCounter(BuildContext context) =>
+      context.findAncestorStateOfType<_MyHomePageState>()?._decreaseCounter();
+
+  void _resetCounter(BuildContext context) =>
+      context.findAncestorStateOfType<_MyHomePageState>()?._resetCounter();
 }
