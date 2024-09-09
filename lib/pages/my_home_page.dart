@@ -86,14 +86,26 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: counter(
-            displayedAsset: displayedAsset,
-            displayedText: displayedText,
-            count: _counter,
-            incrementCounter: _incrementCounter,
-            decreaseCounter: _decreaseCounter,
-            resetCounter: _resetCounter),
-      ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          counter(
+              displayedAsset: displayedAsset,
+              displayedText: displayedText,
+              count: _counter,
+              incrementCounter: _incrementCounter,
+              decreaseCounter: _decreaseCounter,
+              resetCounter: _resetCounter),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => details()),
+                );
+              },
+              child: const Icon(Icons.arrow_right)),
+        ],
+      )),
     );
   }
 }
@@ -172,25 +184,40 @@ class details extends StatelessWidget {
     //getting the device's size
     final Size screenSize = MediaQuery.of(context).size;
 
-    return Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detalles'),
+      ),
+      body: Center(
         child: SizedBox(
-      width: screenSize.width * 0.9,
-      height: screenSize.height * 0.8,
-      child: Card(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Text(displayedText,
-            //     style: Theme.of(context).textTheme.headlineSmall),
-            // Text(
-            //   '$count',
-            //   style: Theme.of(context).textTheme.headlineMedium,
-            // ),
-            const SizedBox(height: 100),
-          ],
+          width: screenSize.width * 0.9,
+          height: screenSize.height * 0.8,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Card(
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('En detalles'),
+                    // Text(
+                    //   '$count',
+                    //   style: Theme.of(context).textTheme.headlineMedium,
+                    // ),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(Icons.arrow_left)),
+              //const SizedBox(height: 100),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
 
