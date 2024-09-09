@@ -161,3 +161,67 @@ class counter extends StatelessWidget {
     ));
   }
 }
+
+class details extends StatelessWidget {
+  const details({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    //getting the device's size
+    final Size screenSize = MediaQuery.of(context).size;
+
+    return Center(
+        child: SizedBox(
+      width: screenSize.width * 0.9,
+      height: screenSize.height * 0.8,
+      child: Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Text(displayedText,
+            //     style: Theme.of(context).textTheme.headlineSmall),
+            // Text(
+            //   '$count',
+            //   style: Theme.of(context).textTheme.headlineMedium,
+            // ),
+            const SizedBox(height: 100),
+          ],
+        ),
+      ),
+    ));
+  }
+}
+
+class about extends StatelessWidget {
+  const about({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    //getting the device's size
+    final Size screenSize = MediaQuery.of(context).size;
+
+    return Center(
+        child: SizedBox(
+      width: screenSize.width * 0.9,
+      height: screenSize.height * 0.8,
+      child: Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Text(displayedText,
+            //     style: Theme.of(context).textTheme.headlineSmall),
+            // Text(
+            //   '$count',
+            //   style: Theme.of(context).textTheme.headlineMedium,
+            // ),
+            const SizedBox(height: 100),
+          ],
+        ),
+      ),
+    ));
+  }
+}
