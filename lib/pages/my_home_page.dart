@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:logger/logger.dart';
 
 var logger = Logger(
@@ -103,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(builder: (context) => details()),
                 );
               },
-              child: const Icon(Icons.arrow_right)),
+              child: const Text('Pagina siguiente')),
         ],
       )),
     );
@@ -167,85 +168,6 @@ class counter extends StatelessWidget {
                     onPressed: resetCounter, child: const Icon(Icons.refresh))
               ],
             )
-          ],
-        ),
-      ),
-    ));
-  }
-}
-
-class details extends StatelessWidget {
-  const details({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    //getting the device's size
-    final Size screenSize = MediaQuery.of(context).size;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detalles'),
-      ),
-      body: Center(
-        child: SizedBox(
-          width: screenSize.width * 0.9,
-          height: screenSize.height * 0.8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Card(
-                child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('En detalles'),
-                    // Text(
-                    //   '$count',
-                    //   style: Theme.of(context).textTheme.headlineMedium,
-                    // ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(Icons.arrow_left)),
-              //const SizedBox(height: 100),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class about extends StatelessWidget {
-  const about({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    //getting the device's size
-    final Size screenSize = MediaQuery.of(context).size;
-
-    return Center(
-        child: SizedBox(
-      width: screenSize.width * 0.9,
-      height: screenSize.height * 0.8,
-      child: Card(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Text(displayedText,
-            //     style: Theme.of(context).textTheme.headlineSmall),
-            // Text(
-            //   '$count',
-            //   style: Theme.of(context).textTheme.headlineMedium,
-            // ),
-            const SizedBox(height: 100),
           ],
         ),
       ),
