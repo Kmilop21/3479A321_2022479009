@@ -28,7 +28,8 @@ class about extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                          'App desarrollada por Camilo Provoste\nestudiante de ingenieria en desarrollo\nde videojuegos y realidad virtual'),
+                          'App desarrollada por Camilo Provoste\nestudiante de ingenieria en desarrollo\nde videojuegos y realidad virtual',
+                          style: Theme.of(context).textTheme.headlineSmall),
                     ],
                   ),
                 ),
