@@ -32,8 +32,7 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() {
-    final Logger _logger = Logger();
-    _logger.d("Create state");
+    logger.d("Crear estado");
     return _MyHomePageState();
   }
 }
@@ -46,8 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
+      print('SetState +');
       _counter++;
-      logger.i('counter increased, new count: $_counter');
+      //logger.i('counter increased, new count: $_counter');
       _CheckResults();
     });
   }
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _decreaseCounter() {
     setState(() {
       _counter--;
-      logger.i('counter decreased, new count: $_counter');
+      //logger.i('counter decreased, new count: $_counter');
       _CheckResults();
     });
   }
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _resetCounter() {
     setState(() {
       _counter = 0;
-      logger.i('counter reseted, new count: $_counter');
+      //logger.i('counter reseted, new count: $_counter');
       _CheckResults();
     });
   }
@@ -82,8 +82,38 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    print('initState, mounted: $mounted');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('didChangeDependencies');
+  }
+
+  @override
+  void didUpdateWidget(MyHomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget');
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print('deactivate');
+  }
+
+  @override
+  void dispose() {
+    print('dispose');
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    logger.i('MyHomePage is loading');
+    //logger.i('MyHomePage is loading');
 
     return Scaffold(
       appBar: AppBar(
@@ -112,6 +142,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       )),
     );
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    print('reassemble, mounted: $mounted');
   }
 }
 

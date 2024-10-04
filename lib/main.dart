@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.i('logger is working!');
+    //logger.i('logger is working!');
 
     return MaterialApp(
       title: 'Flutter Demo',
