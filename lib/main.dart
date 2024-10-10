@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromARGB(255, 249, 73, 3)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Pagina principal demo de Flutter'),
+      home: const MyHomePage(title: 'Contador'),
     );
   }
 }

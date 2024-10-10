@@ -138,6 +138,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             ListTile(
+              leading: Icon(Icons.stacked_line_chart_outlined),
+              title: Text('Contador'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyHomePage(title: 'Contador')),
+                );
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.info),
               title: Text('Detalles'),
               onTap: () {
@@ -158,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.info),
+              leading: Icon(Icons.notes),
               title: Text('Auditoría'),
               onTap: () {
                 Navigator.push(
