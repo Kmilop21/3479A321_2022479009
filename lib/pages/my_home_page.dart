@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
+import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
 import 'package:logger/logger.dart';
 
 var logger = Logger(
@@ -129,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Theme.of(context).primaryColor,
               ),
               child: Text(
-                'Menú',
+                'Menu',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -153,6 +154,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => about()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('Auditoría'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => auditoria()),
                 );
               },
             )

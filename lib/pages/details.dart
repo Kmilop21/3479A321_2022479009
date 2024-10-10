@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lab_dispositivosmoviles/pages/about.dart';
 
 class details extends StatelessWidget {
   const details({
@@ -29,7 +28,7 @@ class details extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                          'Laboratorio 3 de Camilo Provoste para el modulo de programacion para dispositivos moviles',
+                          'Laboratorio 6 de Camilo Provoste para el modulo de programacion para dispositivos moviles',
                           style: Theme.of(context).textTheme.headlineSmall),
                     ],
                   ),
@@ -38,14 +37,7 @@ class details extends StatelessWidget {
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Pagina anterior')),
-                  const SizedBox(width: 30),
-                ],
+                children: [],
               )
             ],
           ),

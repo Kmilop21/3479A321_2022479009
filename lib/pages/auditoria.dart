@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class about extends StatelessWidget {
-  const about({
+class auditoria extends StatelessWidget {
+  const auditoria({
     super.key,
   });
 
@@ -12,7 +12,7 @@ class about extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Acerca de'),
+          title: const Text('Auditoría'),
         ),
         body: Center(
             child: SizedBox(
@@ -27,14 +27,17 @@ class about extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                          'App desarrollada por Camilo Provoste\nestudiante de ingenieria en desarrollo\nde videojuegos y realidad virtual',
+                      Text('Auditoría',
                           style: Theme.of(context).textTheme.headlineSmall),
                     ],
                   ),
                 ),
               )),
               const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [],
+              )
             ],
           ),
         )));
