@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:logger/logger.dart';
 
@@ -69,10 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _CheckResults() {
-    if (_counter >= 5) {
+    if (_counter >= 10) {
       displayedAsset = 'assets/icons/victory.svg';
       displayedText = '¡Victoria!';
-    } else if (_counter <= -5) {
+    } else if (_counter == 5) {
       displayedAsset = 'assets/icons/gameover.svg';
       displayedText = '¡Derrota!';
     } else {
@@ -114,11 +115,49 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     //logger.i('MyHomePage is loading');
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Text(
+                'Menú',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('Detalles'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => details()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('Acerca'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => about()),
+                );
+              },
+            )
+          ],
+        ),
       ),
       body: Center(
           child: Column(
@@ -131,14 +170,6 @@ class _MyHomePageState extends State<MyHomePage> {
               incrementCounter: _incrementCounter,
               decreaseCounter: _decreaseCounter,
               resetCounter: _resetCounter),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => details()),
-                );
-              },
-              child: const Text('Pagina siguiente')),
         ],
       )),
     );

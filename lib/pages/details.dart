@@ -45,14 +45,6 @@ class details extends StatelessWidget {
                       },
                       child: const Text('Pagina anterior')),
                   const SizedBox(width: 30),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => about()),
-                        );
-                      },
-                      child: const Text('Pagina siguiente')),
                 ],
               )
             ],
