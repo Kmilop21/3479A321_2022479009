@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
+import 'package:lab_dispositivosmoviles/AppData.dart';
+import 'package:provider/provider.dart';
 
 class details extends StatelessWidget {
   const details({
@@ -12,6 +14,7 @@ class details extends StatelessWidget {
   Widget build(BuildContext context) {
     //getting the device's size
     final Size screenSize = MediaQuery.of(context).size;
+    final appData = Provider.of<AppData>(context);
 
     return Scaffold(
         appBar: AppBar(
@@ -93,6 +96,9 @@ class details extends StatelessWidget {
                       Text(
                           'Laboratorio 6 de Camilo Provoste para el modulo de programacion para dispositivos moviles',
                           style: Theme.of(context).textTheme.headlineSmall),
+                      SizedBox(height: 50),
+                      Text('Contador: ${appData.counter}',
+                          style: Theme.of(context).textTheme.headlineSmall)
                     ],
                   ),
                 ),

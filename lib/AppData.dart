@@ -24,4 +24,24 @@ class AppData extends ChangeNotifier {
     _actions.add('Contador reiniciado');
     notifyListeners();
   }
+
+  String get displayedAsset {
+    if (_counter >= 10) {
+      return 'assets/icons/victory.svg';
+    } else if (_counter == 5) {
+      return 'assets/icons/gameover.svg';
+    } else {
+      return 'assets/icons/stonks.svg';
+    }
+  }
+
+  String get displayedText {
+    if (_counter >= 10) {
+      return '¡Victoria!';
+    } else if (_counter == 5) {
+      return '¡Derrota!';
+    } else {
+      return 'Has presionado el boton estas veces:';
+    }
+  }
 }

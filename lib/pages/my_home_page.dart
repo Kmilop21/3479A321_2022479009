@@ -4,6 +4,8 @@ import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
+import 'package:lab_dispositivosmoviles/AppData.dart';
 
 var logger = Logger(
   printer: PrettyPrinter(),
@@ -185,13 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          counter(
-              displayedAsset: displayedAsset,
-              displayedText: displayedText,
-              count: _counter,
-              incrementCounter: _incrementCounter,
-              decreaseCounter: _decreaseCounter,
-              resetCounter: _resetCounter),
+          counter(),
         ],
       )),
     );
@@ -205,26 +201,14 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class counter extends StatelessWidget {
-  const counter(
-      {super.key,
-      required this.displayedAsset,
-      required this.displayedText,
-      required this.count,
-      required this.incrementCounter,
-      required this.decreaseCounter,
-      required this.resetCounter});
-
-  final String displayedAsset;
-  final String displayedText;
-  final int count;
-  final VoidCallback incrementCounter;
-  final VoidCallback decreaseCounter;
-  final VoidCallback resetCounter;
+  const counter({super.key});
 
   @override
   Widget build(BuildContext context) {
     //getting the device's size
     final Size screenSize = MediaQuery.of(context).size;
+
+    final appData = Provider.of<AppData>(context);
 
     return Center(
         child: SizedBox(
@@ -235,15 +219,15 @@ class counter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SvgPicture.asset(
-              displayedAsset,
+              appData.displayedAsset,
               semanticsLabel: 'stonks',
               width: 30,
               height: 30,
             ),
-            Text(displayedText,
+            Text(appData.displayedText,
                 style: Theme.of(context).textTheme.headlineSmall),
             Text(
-              '$count',
+              '${appData.counter}',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 100),
@@ -251,14 +235,19 @@ class counter extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ElevatedButton(
-                    onPressed: incrementCounter, child: const Icon(Icons.add)),
+                    onPressed: Provider.of<AppData>(context, listen: false)
+                        .incrementCounter,
+                    child: const Icon(Icons.add)),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: decreaseCounter,
+                    onPressed: Provider.of<AppData>(context, listen: false)
+                        .decreaseCounter,
                     child: const Icon(Icons.remove)),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: resetCounter, child: const Icon(Icons.refresh))
+                    onPressed: Provider.of<AppData>(context, listen: false)
+                        .resetCounter,
+                    child: const Icon(Icons.refresh))
               ],
             )
           ],
