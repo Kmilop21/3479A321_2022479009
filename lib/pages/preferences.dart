@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences extends StatefulWidget {
   @override
@@ -10,8 +13,37 @@ class Preferences extends StatefulWidget {
 }
 
 class _PreferencesState extends State<Preferences> {
+  final _formKey = GlobalKey<FormState>();
+  String _username = '';
+  double _sliderValue = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _username = prefs.getString('username') ?? '';
+      _sliderValue = (prefs.getInt('counter') ?? 0).toDouble();
+      print('Counter value $_sliderValue is loaded');
+      print('Username value $_username is loaded');
+    });
+  }
+
+  Future<void> _savePreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', _username);
+    await prefs.setInt('counter', _sliderValue.toInt());
+    print('Preferences saved');
+  }
+
   @override
   Widget build(BuildContext context) {
+    final appData = Provider.of<AppData>(context);
+    _sliderValue = appData.getCounter().toDouble();
     return Scaffold(
       appBar: AppBar(
         title: Text('Preferences'),
@@ -86,8 +118,50 @@ class _PreferencesState extends State<Preferences> {
           ],
         ),
       ),
-      body: Center(
-        child: Text('Preferences Page'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Nombre de usuario',
+                style: TextStyle(fontSize: 22),
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'Ingresa tu nombre de usuario',
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _username = value;
+                  });
+                  _savePreferences();
+                },
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Contador',
+                style: TextStyle(fontSize: 22),
+              ),
+              Slider(
+                value: _sliderValue,
+                min: 0,
+                max: 10,
+                divisions: 10,
+                label: _sliderValue.round().toString(),
+                onChanged: (value) {
+                  setState(() {
+                    _sliderValue = value;
+                    appData.setCounter(value.toInt());
+                  });
+                  _savePreferences();
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

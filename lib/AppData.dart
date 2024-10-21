@@ -25,6 +25,15 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setCounter(int n) {
+    _counter = n;
+    notifyListeners();
+  }
+
+  int getCounter() {
+    return _counter;
+  }
+
   String get displayedAsset {
     if (_counter >= 10) {
       return 'assets/icons/victory.svg';
