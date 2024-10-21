@@ -27,11 +27,8 @@ class AppData extends ChangeNotifier {
 
   void setCounter(int n) {
     _counter = n;
+    _actions.add('Contador modificado');
     notifyListeners();
-  }
-
-  int getCounter() {
-    return _counter;
   }
 
   String get displayedAsset {

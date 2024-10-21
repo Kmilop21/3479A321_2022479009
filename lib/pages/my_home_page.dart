@@ -3,9 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
+import 'package:lab_dispositivosmoviles/pages/preferences.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:lab_dispositivosmoviles/AppData.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var logger = Logger(
   printer: PrettyPrinter(),
@@ -42,6 +44,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String _username = '';
+  int _counter = 0;
+
   @override
   void initState() {
     super.initState();
@@ -49,7 +54,64 @@ class _MyHomePageState extends State<MyHomePage> {
       final appData = Provider.of<AppData>(context, listen: false);
       appData.actionLog('accesso a la pagina principal');
     });
+
+    _loadPreferences();
+
     print('initState, mounted: $mounted');
+  }
+
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _username = prefs.getString('username') ?? '';
+      _counter = prefs.getInt('counter') ?? 0;
+    });
+  }
+
+  Future<void> _saveCounter(int counter) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('counter', counter);
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+    _saveCounter(_counter);
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+    _saveCounter(_counter);
+  }
+
+  void _resetCounter() {
+    setState(() {
+      _counter = 0;
+    });
+    _saveCounter(_counter);
+  }
+
+  String get displayedAsset {
+    if (_counter >= 10) {
+      return 'assets/icons/victory.svg';
+    } else if (_counter == 5) {
+      return 'assets/icons/gameover.svg';
+    } else {
+      return 'assets/icons/stonks.svg';
+    }
+  }
+
+  String get displayedText {
+    if (_counter >= 10) {
+      return '¡Victoria!';
+    } else if (_counter == 5) {
+      return '¡Derrota!';
+    } else {
+      return 'Has presionado el boton estas veces:';
+    }
   }
 
   @override
@@ -147,8 +209,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => auditoria()),
-                );
+                  MaterialPageRoute(builder: (context) => Preferences()),
+                ).then((_) {
+                  _loadPreferences();
+                });
               },
             )
           ],
@@ -158,7 +222,15 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          counter(),
+          Counter(
+            username: _username,
+            counter: _counter,
+            onIncrement: _incrementCounter,
+            onDecrement: _decrementCounter,
+            onReset: _resetCounter,
+            asset: displayedAsset,
+            text: displayedText,
+          ),
         ],
       )),
     );
@@ -171,15 +243,30 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class counter extends StatelessWidget {
-  const counter({super.key});
+class Counter extends StatelessWidget {
+  final String username;
+  final int counter;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
+  final VoidCallback onReset;
+  final String asset;
+  final String text;
+
+  const Counter({
+    super.key,
+    required this.username,
+    required this.counter,
+    required this.onIncrement,
+    required this.onDecrement,
+    required this.onReset,
+    required this.asset,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
     //getting the device's size
     final Size screenSize = MediaQuery.of(context).size;
-
-    final appData = Provider.of<AppData>(context);
 
     return Center(
         child: SizedBox(
@@ -189,16 +276,18 @@ class counter extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('Hola $username',
+                style: Theme.of(context).textTheme.headlineSmall),
+            SizedBox(height: 50),
             SvgPicture.asset(
-              appData.displayedAsset,
+              asset,
               semanticsLabel: 'stonks',
               width: 30,
               height: 30,
             ),
-            Text(appData.displayedText,
-                style: Theme.of(context).textTheme.headlineSmall),
+            Text(text, style: Theme.of(context).textTheme.headlineSmall),
             Text(
-              '${appData.counter}',
+              '$counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 100),
@@ -206,19 +295,19 @@ class counter extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ElevatedButton(
-                    onPressed: Provider.of<AppData>(context, listen: false)
-                        .incrementCounter,
-                    child: const Icon(Icons.add)),
+                  onPressed: onIncrement,
+                  child: const Icon(Icons.add),
+                ),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: Provider.of<AppData>(context, listen: false)
-                        .decreaseCounter,
-                    child: const Icon(Icons.remove)),
+                  onPressed: onDecrement,
+                  child: const Icon(Icons.remove),
+                ),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                    onPressed: Provider.of<AppData>(context, listen: false)
-                        .resetCounter,
-                    child: const Icon(Icons.refresh))
+                  onPressed: onReset,
+                  child: const Icon(Icons.refresh),
+                )
               ],
             )
           ],

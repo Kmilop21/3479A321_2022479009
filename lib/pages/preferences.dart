@@ -14,8 +14,8 @@ class Preferences extends StatefulWidget {
 
 class _PreferencesState extends State<Preferences> {
   final _formKey = GlobalKey<FormState>();
-  String _username = '';
-  double _sliderValue = 0;
+  String _username = 'UsernameNotFound';
+  double _counter = 0;
 
   @override
   void initState() {
@@ -27,8 +27,8 @@ class _PreferencesState extends State<Preferences> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _username = prefs.getString('username') ?? '';
-      _sliderValue = (prefs.getInt('counter') ?? 0).toDouble();
-      print('Counter value $_sliderValue is loaded');
+      _counter = (prefs.getInt('counter') ?? 0).toDouble();
+      print('Counter value $_counter is loaded');
       print('Username value $_username is loaded');
     });
   }
@@ -36,14 +36,12 @@ class _PreferencesState extends State<Preferences> {
   Future<void> _savePreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('username', _username);
-    await prefs.setInt('counter', _sliderValue.toInt());
+    await prefs.setInt('counter', _counter.toInt());
     print('Preferences saved');
   }
 
   @override
   Widget build(BuildContext context) {
-    final appData = Provider.of<AppData>(context);
-    _sliderValue = appData.getCounter().toDouble();
     return Scaffold(
       appBar: AppBar(
         title: Text('Preferences'),
@@ -146,15 +144,14 @@ class _PreferencesState extends State<Preferences> {
                 style: TextStyle(fontSize: 22),
               ),
               Slider(
-                value: _sliderValue,
+                value: _counter,
                 min: 0,
                 max: 10,
                 divisions: 10,
-                label: _sliderValue.round().toString(),
+                label: _counter.round().toString(),
                 onChanged: (value) {
                   setState(() {
-                    _sliderValue = value;
-                    appData.setCounter(value.toInt());
+                    _counter = value;
                   });
                   _savePreferences();
                 },
