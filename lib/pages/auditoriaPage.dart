@@ -6,18 +6,18 @@ import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
 import 'package:lab_dispositivosmoviles/pages/preferences.dart';
 import 'package:provider/provider.dart';
 
-class auditoria extends StatefulWidget {
-  const auditoria({
+class auditoriaPage extends StatefulWidget {
+  const auditoriaPage({
     super.key,
   });
 
   @override
-  State<auditoria> createState() {
-    return _auditoriaState();
+  State<auditoriaPage> createState() {
+    return _auditoriaPageState();
   }
 }
 
-class _auditoriaState extends State<auditoria> {
+class _auditoriaPageState extends State<auditoriaPage> {
   @override
   void initState() {
     super.initState();
@@ -86,7 +86,7 @@ class _auditoriaState extends State<auditoria> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => auditoria()),
+                  MaterialPageRoute(builder: (context) => auditoriaPage()),
                 );
               },
             ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
-import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
+import 'package:lab_dispositivosmoviles/pages/auditoriaPage.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences extends StatefulWidget {
@@ -99,7 +97,7 @@ class _PreferencesState extends State<Preferences> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => auditoria()),
+                  MaterialPageRoute(builder: (context) => auditoriaPage()),
                 );
               },
             ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
-import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
+import 'package:lab_dispositivosmoviles/pages/auditoriaPage.dart';
 import 'package:lab_dispositivosmoviles/pages/preferences.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -199,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => auditoria()),
+                  MaterialPageRoute(builder: (context) => auditoriaPage()),
                 );
               },
             ),
