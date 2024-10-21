@@ -18,6 +18,16 @@ class details extends StatefulWidget {
 
 class _detailsState extends State<details> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final appData = Provider.of<AppData>(context, listen: false);
+      appData.actionLog('accesso a detalles de la aplicacion');
+    });
+    print('initState, mounted: $mounted');
+  }
+
+  @override
   Widget build(BuildContext context) {
     //getting the device's size
     final Size screenSize = MediaQuery.of(context).size;

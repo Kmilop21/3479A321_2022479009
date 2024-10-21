@@ -45,6 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final appData = Provider.of<AppData>(context, listen: false);
+      appData.actionLog('accesso a la pagina principal');
+    });
     print('initState, mounted: $mounted');
   }
 

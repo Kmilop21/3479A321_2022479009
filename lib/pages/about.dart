@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
+import 'package:provider/provider.dart';
 
 class about extends StatefulWidget {
   const about({
@@ -15,6 +17,15 @@ class about extends StatefulWidget {
 }
 
 class _aboutState extends State<about> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final appData = Provider.of<AppData>(context, listen: false);
+      appData.actionLog('accesso a informacion del desarrollador');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     //getting the device's size

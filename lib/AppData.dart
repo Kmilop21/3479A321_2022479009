@@ -20,7 +20,7 @@ class AppData extends ChangeNotifier {
   }
 
   void resetCounter() {
-    _counter == 0;
+    _counter = 0;
     _actions.add('Contador reiniciado');
     notifyListeners();
   }
@@ -43,5 +43,10 @@ class AppData extends ChangeNotifier {
     } else {
       return 'Has presionado el boton estas veces:';
     }
+  }
+
+  void actionLog(String action) {
+    _actions.add(action);
+    notifyListeners();
   }
 }
