@@ -140,6 +140,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(builder: (context) => auditoria()),
                 );
               },
+            ),
+            ListTile(
+              leading: Icon(Icons.room_preferences),
+              title: Text('Preferencias'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => auditoria()),
+                );
+              },
             )
           ],
         ),

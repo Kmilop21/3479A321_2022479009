@@ -3,6 +3,7 @@ import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
 import 'package:lab_dispositivosmoviles/AppData.dart';
+import 'package:lab_dispositivosmoviles/pages/preferences.dart';
 import 'package:provider/provider.dart';
 
 class details extends StatefulWidget {
@@ -91,6 +92,16 @@ class _detailsState extends State<details> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => auditoria()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.room_preferences),
+                title: Text('Preferencias'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Preferences()),
                   );
                 },
               )

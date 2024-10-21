@@ -1,37 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
+import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
-import 'package:lab_dispositivosmoviles/pages/preferences.dart';
-import 'package:provider/provider.dart';
 
-class auditoria extends StatefulWidget {
-  const auditoria({
-    super.key,
-  });
-
+class Preferences extends StatefulWidget {
   @override
-  State<auditoria> createState() {
-    return _auditoriaState();
-  }
+  _PreferencesState createState() => _PreferencesState();
 }
 
-class _auditoriaState extends State<auditoria> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final appData = Provider.of<AppData>(context, listen: false);
-      appData.actionLog('accesso a auditoria');
-    });
-  }
-
+class _PreferencesState extends State<Preferences> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Auditoría'),
+        title: Text('Preferences'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -103,17 +86,8 @@ class _auditoriaState extends State<auditoria> {
           ],
         ),
       ),
-      body: Consumer<AppData>(
-        builder: (context, appData, child) {
-          return ListView.builder(
-            itemCount: appData.actions.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(appData.actions[index]),
-              );
-            },
-          );
-        },
+      body: Center(
+        child: Text('Preferences Page'),
       ),
     );
   }
