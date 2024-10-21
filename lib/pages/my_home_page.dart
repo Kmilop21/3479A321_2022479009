@@ -42,49 +42,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  String displayedAsset = 'assets/icons/stonks.svg';
-  String displayedText = 'Has persionado el boton estas veces:';
-
-  void _incrementCounter() {
-    setState(() {
-      print('SetState +');
-      _counter++;
-      //logger.i('counter increased, new count: $_counter');
-      _CheckResults();
-    });
-  }
-
-  void _decreaseCounter() {
-    setState(() {
-      _counter--;
-      //logger.i('counter decreased, new count: $_counter');
-      _CheckResults();
-    });
-  }
-
-  void _resetCounter() {
-    setState(() {
-      _counter = 0;
-      //logger.i('counter reseted, new count: $_counter');
-      _CheckResults();
-    });
-  }
-
-  void _CheckResults() {
-    if (_counter >= 10) {
-      displayedAsset = 'assets/icons/victory.svg';
-      displayedText = '¡Victoria!';
-    } else if (_counter == 5) {
-      displayedAsset = 'assets/icons/gameover.svg';
-      displayedText = '¡Derrota!';
-    } else {
-      displayedAsset = 'assets/icons/stonks.svg';
-      displayedText = 'Has persionado el boton estas veces:';
-    }
-  }
-
   @override
   void initState() {
     super.initState();

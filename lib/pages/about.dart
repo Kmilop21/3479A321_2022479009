@@ -3,11 +3,18 @@ import 'package:lab_dispositivosmoviles/pages/auditoria.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
 
-class about extends StatelessWidget {
+class about extends StatefulWidget {
   const about({
     super.key,
   });
 
+  @override
+  State<about> createState() {
+    return _aboutState();
+  }
+}
+
+class _aboutState extends State<about> {
   @override
   Widget build(BuildContext context) {
     //getting the device's size

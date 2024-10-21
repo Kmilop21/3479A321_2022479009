@@ -5,11 +5,18 @@ import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
 import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:provider/provider.dart';
 
-class details extends StatelessWidget {
+class details extends StatefulWidget {
   const details({
     super.key,
   });
 
+  @override
+  State<details> createState() {
+    return _detailsState();
+  }
+}
+
+class _detailsState extends State<details> {
   @override
   Widget build(BuildContext context) {
     //getting the device's size
