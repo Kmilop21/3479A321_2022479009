@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
 import 'package:lab_dispositivosmoviles/pages/auditoriaPage.dart';
+import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
 import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:lab_dispositivosmoviles/pages/preferences.dart';
 import 'package:provider/provider.dart';
 
-class details extends StatefulWidget {
-  const details({
+class cameraPage extends StatefulWidget {
+  const cameraPage({
     super.key,
   });
 
   @override
-  State<details> createState() {
-    return _detailsState();
+  State<cameraPage> createState() {
+    return _cameraPageState();
   }
 }
 
-class _detailsState extends State<details> {
+class _cameraPageState extends State<cameraPage> {
   @override
   void initState() {
     super.initState();
@@ -36,7 +37,7 @@ class _detailsState extends State<details> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalles'),
+        title: const Text('Camara'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -111,7 +112,7 @@ class _detailsState extends State<details> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Preferences()),
+                  MaterialPageRoute(builder: (context) => cameraPage()),
                 );
               },
             )

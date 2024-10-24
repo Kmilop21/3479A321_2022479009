@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
+import 'package:lab_dispositivosmoviles/pages/camera.dart';
 import 'package:lab_dispositivosmoviles/pages/details.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
 import 'package:lab_dispositivosmoviles/pages/preferences.dart';
@@ -106,7 +107,7 @@ class _auditoriaPageState extends State<auditoriaPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Preferences()),
+                  MaterialPageRoute(builder: (context) => cameraPage()),
                 );
               },
             )
