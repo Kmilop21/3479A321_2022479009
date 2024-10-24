@@ -214,6 +214,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   _loadPreferences();
                 });
               },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera),
+              title: Text('Camara'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Preferences()),
+                );
+              },
             )
           ],
         ),

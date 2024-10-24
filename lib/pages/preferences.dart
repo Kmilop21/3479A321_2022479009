@@ -110,6 +110,16 @@ class _PreferencesState extends State<Preferences> {
                   MaterialPageRoute(builder: (context) => Preferences()),
                 );
               },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera),
+              title: Text('Camara'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Preferences()),
+                );
+              },
             )
           ],
         ),

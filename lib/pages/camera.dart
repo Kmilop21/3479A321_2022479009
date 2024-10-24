@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:lab_dispositivosmoviles/pages/about.dart';
-import 'package:lab_dispositivosmoviles/pages/details.dart';
+import 'package:lab_dispositivosmoviles/pages/auditoriaPage.dart';
 import 'package:lab_dispositivosmoviles/pages/my_home_page.dart';
+import 'package:lab_dispositivosmoviles/AppData.dart';
 import 'package:lab_dispositivosmoviles/pages/preferences.dart';
 import 'package:provider/provider.dart';
 
-class auditoriaPage extends StatefulWidget {
-  const auditoriaPage({
+class details extends StatefulWidget {
+  const details({
     super.key,
   });
 
   @override
-  State<auditoriaPage> createState() {
-    return _auditoriaPageState();
+  State<details> createState() {
+    return _detailsState();
   }
 }
 
-class _auditoriaPageState extends State<auditoriaPage> {
+class _detailsState extends State<details> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final appData = Provider.of<AppData>(context, listen: false);
-      appData.actionLog('accesso a auditoria');
+      appData.actionLog('accesso a detalles de la aplicacion');
     });
+    print('initState, mounted: $mounted');
   }
 
   @override
   Widget build(BuildContext context) {
+    //getting the device's size
+    final Size screenSize = MediaQuery.of(context).size;
+    final appData = Provider.of<AppData>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Auditoría'),
+        title: const Text('Detalles'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -112,18 +117,6 @@ class _auditoriaPageState extends State<auditoriaPage> {
             )
           ],
         ),
-      ),
-      body: Consumer<AppData>(
-        builder: (context, appData, child) {
-          return ListView.builder(
-            itemCount: appData.actions.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(appData.actions[index]),
-              );
-            },
-          );
-        },
       ),
     );
   }
